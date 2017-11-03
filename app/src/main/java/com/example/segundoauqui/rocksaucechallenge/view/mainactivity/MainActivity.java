@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     LinearLayoutManager layoutManager;
     RecyclerView.ItemAnimator itemAnimator;
     RecyclerView recycler;
+    MainActivityPresenter presenter;
+
     private SwipeRefreshLayout activityMainSwipeRefreshLayout;
 
 
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         setContentView(R.layout.activity_main);
 
         setUpDagger();
-
+        presenter.attachView(this);
         layoutManager = new LinearLayoutManager(getApplicationContext());
         itemAnimator = new DefaultItemAnimator();
         recycler.setLayoutManager(layoutManager);
@@ -48,6 +50,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         recycler.setItemViewCacheSize(20);
         recycler.setDrawingCacheEnabled(true);
         recycler.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+
+        presenter.restCall();
+
 
     }
 
@@ -89,10 +94,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void getAllPostList(List<Data_> getAllPostList) {
+        CategoriesAdapter firstAdapter = new CategoriesAdapter((ArrayList<Data_>) getAllPostList);
+        recycler.setAdapter(firstAdapter);
+        firstAdapter.notifyDataSetChanged();
+
+        this.data= (ArrayList<Data_>) getAllPostList;
+    }
 
     }
 
-
-
-
-}
