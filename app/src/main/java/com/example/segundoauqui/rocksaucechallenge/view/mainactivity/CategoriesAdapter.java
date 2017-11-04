@@ -15,13 +15,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.segundoauqui.rocksaucechallenge.R;
-import com.example.segundoauqui.rocksaucechallenge.model.Data;
-import com.example.segundoauqui.rocksaucechallenge.model.Data_;
+import com.example.segundoauqui.rocksaucechallenge.model.Child;
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import javax.xml.transform.Result;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by segundoauqui on 11/3/17.
@@ -34,10 +32,10 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     private static final String TAG = "RetrofitAdapter";
 
 
-    ArrayList<Data_> categoriesList = new ArrayList<>();
+    ArrayList<Child> categoriesList = new ArrayList<>();
     Context context;
 
-    public CategoriesAdapter(ArrayList<Data_> categoriesList) {
+    public CategoriesAdapter(ArrayList<Child> categoriesList) {
         this.categoriesList = categoriesList;
 
     }
@@ -48,16 +46,21 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
         TextView tvText1;
         TextView tvText2;
         TextView tvText3;
+        TextView tvText4;
         ImageView ivImage;
         ImageView ivSmall;
+        CircleImageView ciImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            ciImage = (CircleImageView) itemView.findViewById(R.id.ciImage);
             ivSmall = (ImageView) itemView.findViewById(R.id.ivSmall);
             ivImage = (ImageView) itemView.findViewById(R.id.ivImage);
             tvText1 = (TextView) itemView.findViewById(R.id.tvText1);
             tvText2 = (TextView) itemView.findViewById(R.id.tvText2);
             tvText3 = (TextView) itemView.findViewById(R.id.tvText3);
+            tvText4 = (TextView) itemView.findViewById(R.id.tvText4);
+
         }
     }
 
@@ -77,27 +80,31 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     @Override
     public void onBindViewHolder(CategoriesAdapter.ViewHolder holder, int position) {
 
-        final Data_ retro = categoriesList.get(position);
+        final Child retro = categoriesList.get(position);
 
-        holder.tvText1.setText(retro.getAuthor());
-        holder.tvText2.setText(retro.getDomain());
-        holder.tvText3.setText(retro.getId());
 
-        Glide.with(holder.itemView.getContext()).load(retro.getIsVideo()).into(holder.ivImage);
+        holder.tvText1.setText(retro.getData().getAuthor());
+        holder.tvText2.setText(retro.getData().getDowns().toString());
+        holder.tvText3.setText(retro.getData().getId());
+        holder.tvText3.setText(String.valueOf(retro.getData().getLikes()));
+
+
+
+        Glide.with(holder.itemView.getContext()).load(retro.getData().getThumbnail()).into(holder.ciImage);
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(final View view) {
                 new AlertDialog.Builder(view.getContext())
                         .setTitle("Select One From The Options")
-                        .setPositiveButton("Show Full Image", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Share with", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 final Dialog dialogCustom = new Dialog(view.getContext());
                                 dialogCustom.setContentView(R.layout.smallpix);
                                 ImageView largePix = (ImageView) dialogCustom.findViewById(R.id.ivSmall);
-                                Glide.with(view.getContext()).load(retro.getIsVideo()).into(largePix);
+                                Glide.with(view.getContext()).load(retro.getData().getThumbnail()).into(largePix);
                                 dialogCustom.show();
-                                Toast.makeText(context, "Showing Small Image", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Sharing", Toast.LENGTH_SHORT).show();
 
                             }
                         }).show();

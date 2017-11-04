@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ndroid="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,8 +10,19 @@
     android:layout_marginBottom="8dp"
     android:layout_marginTop="3dp"
     android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    >
+    android:layout_marginRight="4dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ciImage"
+        android:layout_marginTop="9dp"
+        android:layout_marginLeft="8dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/border1"
+        android:gravity="center_vertical"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000" />
 
     <ImageView
         android:background="@drawable/border1"
@@ -21,6 +33,7 @@
         android:layout_height="80dp"
         android:id="@+id/ivImage"
         android:layout_weight="4"/>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -51,6 +64,14 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:id="@+id/tvText3"/>
+
+    <TextView
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/tvText4"/>
+
+
 
 </LinearLayout>
 
