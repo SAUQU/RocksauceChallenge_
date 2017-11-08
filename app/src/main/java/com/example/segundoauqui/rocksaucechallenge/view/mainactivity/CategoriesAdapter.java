@@ -1,3 +1,4 @@
+
 package com.example.segundoauqui.rocksaucechallenge.view.mainactivity;
 
 import android.app.AlertDialog;
@@ -84,9 +85,8 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
 
         holder.tvText1.setText(retro.getData().getAuthor());
-        holder.tvText2.setText(retro.getData().getDowns().toString());
-        holder.tvText3.setText(retro.getData().getId());
-        holder.tvText3.setText(String.valueOf(retro.getData().getLikes()));
+        holder.tvText2.setText(retro.getData().getTitle());
+        holder.tvText3.setText(retro.getData().getSubreddit());
 
 
 
